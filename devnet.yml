@@ -1,0 +1,19 @@
+---
+
+- hosts: csr1000v
+  gather_facts: False
+  tasks:
+  - name: Read in parse_genie role
+    include_role:
+      name: clay584.parse_genie
+
+  - name: Get Data From Device
+    ios_command:
+      commands: show interfaces
+    register: interfaces
+
+  - name: Print Structured Data
+    debug:
+      msg: "{{ interfaces['stdout'][0] | parse_genie(command='show interfaces', os='iosxe') }}"
+    delegate_to: localhost
+

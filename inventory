@@ -1,2 +1,13 @@
 [all]
 localhost
+
+[devnet]
+csr1000v ansible_host=ios-xe-mgmt-latest.cisco.com
+
+[devnet:vars]
+#ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q guest@10.66.151.105 -p 10002"'
+ansible_connection=network_cli
+ansible_network_os=ios
+ansible_user=developer
+ansible_ssh_pass=C1sco12345
+ansible_port=8181
