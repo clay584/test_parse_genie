@@ -64,5 +64,7 @@
       delegate_to: localhost
 
     - name: Test Genie Filter for generic tabular data
-
+      debug:
+        msg: "{{ out_ios_sla | parse_genie(command='test show ip sla summary', os='ios', generic_tabular=True, generic_tabular_metadata=parse_genie) }}"  # yamllint disable-line rule:line-length
+      delegate_to: localhost
 
