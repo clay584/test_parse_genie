@@ -3,7 +3,7 @@
 
 parse_genie:
   ios:
-    "test show ip sla summary":
+    "show ip sla summary":
       headers:
         - - ID
           - Type
@@ -20,7 +20,7 @@ parse_genie:
       index:
         - 0
   iosxe:
-    "test show ip sla summary":
+    "show ip sla summary":
       headers:
         - - ID
           - Type
@@ -36,4 +36,12 @@ parse_genie:
           - Run
       index:
         - 1
-
+    "show interfaces gigabitEthernet 1 accounting":
+      headers:
+        - Protocol
+        - "Pkts In"
+        - "Chars In"
+        - "Pkts Out"
+        - "Chars Out"
+      index:
+        - 0

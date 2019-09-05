@@ -7,7 +7,12 @@
     include_role:
       name: clay584.parse_genie
 
-  - name: Get Data From Device
+  - name: Include vars
+    include_vars:
+      file: parse_genie_generic_commands.yml
+      name: parse_genie
+
+  - name: Run show interfaces command
     ios_command:
       commands: show interfaces
     register: interfaces
@@ -15,5 +20,15 @@
   - name: Print Structured Data
     debug:
       msg: "{{ interfaces['stdout'][0] | parse_genie(command='show interfaces', os='iosxe') }}"
+    delegate_to: localhost
+
+  - name: Run show interfaces gigabitEthernet 1 accounting
+    ios_command:
+      commands: show interfaces gigabitEthernet 1 accounting
+    register: show_intf_accounting
+
+  - name: Parse show interfaces gigabitEthernet 1 accounting command with tabular parsing capability
+    debug:
+      msg: "{{ show_intf_accounting['stdout'][0] | parse_genie(command='show interfaces gigabitEthernet 1 accounting', os='iosxe', generic_tabular=True, generic_tabular_metadata=parse_genie) }}"
     delegate_to: localhost
 
